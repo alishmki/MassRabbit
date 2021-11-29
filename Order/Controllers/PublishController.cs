@@ -11,20 +11,20 @@ using Model;
 
 namespace OrderService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OrderController : ControllerBase
+
+    public class PublishController : Controller
     {
         private readonly IPublishEndpoint publishEndpoint;
-        private readonly ILogger<OrderController> logger;
+        private readonly ILogger<PublishController> logger;
 
-        public OrderController(IPublishEndpoint publishEndpoint, ILogger<OrderController> logger)
+        public PublishController(IPublishEndpoint publishEndpoint, ILogger<PublishController> logger)
         {
             this.publishEndpoint = publishEndpoint;
             this.logger = logger;
         }
 
         [HttpPost]
+        [Route("publish")]
         public async Task<IActionResult> Post([FromBody] Order order)
         {
             await publishEndpoint.Publish<Order>(order);

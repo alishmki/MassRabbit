@@ -20,5 +20,6 @@ namespace InventoryService
             await Console.Out.WriteLineAsync(context.Message.Name);
             logger.LogInformation($">>>>>>>>>>>> { context.Message.Name}");
         }
+
     }
 }

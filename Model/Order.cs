@@ -6,4 +6,9 @@ namespace Model
     {
         public string Name { get; set; }
     }
+
+    public class Invoice
+    {
+        public string Name { get; set; }
+    }
 }

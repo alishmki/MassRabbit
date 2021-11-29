@@ -29,14 +29,19 @@ namespace InventoryService
             services.AddControllers();
 
             services.AddMassTransit(config => {
-
+                
                 config.AddConsumer<OrderConsumer>();
+                config.AddConsumer<InvoiceConsumer>();
 
                 config.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host("amqp://guest:guest@localhost:5672");
 
-                    cfg.ReceiveEndpoint("order-queue", c => {
+                    cfg.ReceiveEndpoint("order-queue1", c => {
                         c.ConfigureConsumer<OrderConsumer>(ctx);
+                    });
+
+                    cfg.ReceiveEndpoint("test1", c => {
+                        c.ConfigureConsumer<InvoiceConsumer>(ctx);
                     });
                 });
             });
@@ -44,7 +49,6 @@ namespace InventoryService
             services.AddMassTransitHostedService();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
